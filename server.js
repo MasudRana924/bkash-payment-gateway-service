@@ -3,10 +3,15 @@ const mongoose = require('mongoose')
 const body_parser = require('body-parser')
 const dotEnv = require('dotenv')
 const cors = require('cors')
-
+const session = require('express-session');
 const app = express()
 
-
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set secure to true if using HTTPS
+}));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
