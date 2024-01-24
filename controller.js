@@ -13,8 +13,7 @@ const getBkashHeaders = async () => {
 };
 
 const createPayment = async (req, res) => {
-    const { amount, userId } = req.body;
-    globals.set('userId', userId);
+    const { amount } = req.body;
     try {
         const { data } = await axios.post(process.env.BKASH_CREATE_PAYMENT_URL, {
             mode: '0011',
@@ -47,15 +46,6 @@ const callback = async (req, res) => {
                 headers: await getBkashHeaders(),
             });
             if (data && data.statusCode === '0000') {
-                const userId = globals.get('userId');
-                // await paymentModel.create({
-                //     userId: userId,
-                //     paymentID,
-                //     trxID: data.trxID,
-                //     date: data.paymentExecuteTime,
-                //     amount: parseInt(data.amount),
-                // });
-
                 return res.redirect('http://localhost:3000/success');
             } else {
                 return res.redirect(`http://localhost:3000/error?message=${data.statusMessage}`);
@@ -67,36 +57,11 @@ const callback = async (req, res) => {
     }
 };
 
-const refund = async (req, res) => {
-    // const { trxID } = req.params;
 
-    // try {
-    //     const payment = await paymentModel.findOne({ trxID });
-
-    //     const { data } = await axios.post(process.env.BKASH_REFUND_TRANSACTION_URL, {
-    //         paymentID: payment.paymentID,
-    //         amount: payment.amount,
-    //         trxID,
-    //         sku: 'payment',
-    //         reason: 'cashback',
-    //     }, {
-    //         headers: await getBkashHeaders(),
-    //     });
-
-    //     if (data && data.statusCode === '0000') {
-    //         return res.status(200).json({ message: 'Refund success' });
-    //     } else {
-    //         return res.status(500).json({ error: 'Refund failed' });
-    //     }
-    // } catch (error) {
-    //     return res.status(500).json({ error: 'Refund failed' });
-    // }
-};
 const createAgreement = async (req, res) => {
 
-    const { amount, userId } = req.body;
-    globals.set('userId', userId);
-    console.log("agreement api amount", amount);
+    const { amount } = req.body;
+
 
     try {
         const { data } = await axios.post(process.env.BKASH_CREATE_PAYMENT_URL, {
@@ -132,7 +97,7 @@ const agreementCallback = async (req, res) => {
             console.log(req.session.agreementId);
 
             if (data && data.statusCode === '0000') {
-                return res.redirect('http://localhost:3000/success');
+                return res.redirect('http://localhost:3000/agreement/success');
             } else {
                 return res.redirect(`http://localhost:3000/error?message=${data.statusMessage}`);
             }
@@ -191,6 +156,32 @@ const afterAgreementCallback = async (req, res) => {
             return res.redirect(`http://localhost:3000/error?message=${error.message}`);
         }
     }
+};
+
+const refund = async (req, res) => {
+    // const { trxID } = req.params;
+
+    // try {
+    //     const payment = await paymentModel.findOne({ trxID });
+
+    //     const { data } = await axios.post(process.env.BKASH_REFUND_TRANSACTION_URL, {
+    //         paymentID: payment.paymentID,
+    //         amount: payment.amount,
+    //         trxID,
+    //         sku: 'payment',
+    //         reason: 'cashback',
+    //     }, {
+    //         headers: await getBkashHeaders(),
+    //     });
+
+    //     if (data && data.statusCode === '0000') {
+    //         return res.status(200).json({ message: 'Refund success' });
+    //     } else {
+    //         return res.status(500).json({ error: 'Refund failed' });
+    //     }
+    // } catch (error) {
+    //     return res.status(500).json({ error: 'Refund failed' });
+    // }
 };
 module.exports = {
     createPayment,
