@@ -5,7 +5,7 @@ const dotEnv = require('dotenv')
 const cors = require('cors')
 const session = require('express-session');
 const app = express()
-
+const routes=require('./routes')
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
@@ -18,20 +18,8 @@ app.use(cors({
 }))
 dotEnv.config()
 app.use(body_parser.json())
-
-app.use('/api', require('./routes'))
-
-const db = async()=>{
-    try {
-        await mongoose.connect(process.env.db_url)
-        console.log('db connect')
-    } catch (error) {
-        
-    }
-}
-db()
+app.use('/api',routes )
 const port = process.env.PORT
-
 app.get('/', (req, res) => res.send('server is running'))
 
 app.listen(port, () => console.log(`bKash PGW app listening on port ${port}!`))

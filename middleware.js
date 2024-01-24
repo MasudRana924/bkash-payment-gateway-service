@@ -1,7 +1,7 @@
 const axios = require('axios');
 const globals = require('node-global-storage');
 
-const bkashAuth = async (req, res, next) => {
+const bkashAuthMiddleware = async (req, res, next) => {
     globals.unset('id_token');
 
     try {
@@ -26,5 +26,5 @@ const bkashAuth = async (req, res, next) => {
 };
 
 module.exports = {
-    bkashAuth
+    bkashAuthMiddleware
 };
