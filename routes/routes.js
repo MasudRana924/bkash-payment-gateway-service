@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const { createPayment, callback, refund, createAgreement, agreementCallback, afterAgreementCallback, createPaymentAfterAgreement } = require('./controller')
-const { bkashAuthMiddleware } = require('./middleware');
+const { createPayment, callback, refund, createAgreement, agreementCallback, afterAgreementCallback, createPaymentAfterAgreement } = require('../controller/controller')
+const { bkashAuthMiddleware } = require('../middleware/middleware');
 
 router.post('/bkash/payment/create', bkashAuthMiddleware, createPayment);
 router.post('/bkash/create/agreement', bkashAuthMiddleware, createAgreement);

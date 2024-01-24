@@ -1,5 +1,5 @@
 const axios = require('axios');
-const PaymentModel =require('./models/payment')
+const PaymentModel =require('../models/payment')
 const globals = require('node-global-storage');
 const { v4: uuidv4 } = require('uuid');
 

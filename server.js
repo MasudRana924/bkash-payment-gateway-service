@@ -6,7 +6,7 @@ const cors = require('cors')
 const session = require('express-session');
 require('./config/connection');
 const app = express()
-const routes=require('./routes')
+const routes=require('./routes/routes')
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
