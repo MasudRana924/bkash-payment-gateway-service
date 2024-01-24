@@ -4,6 +4,7 @@ const body_parser = require('body-parser')
 const dotEnv = require('dotenv')
 const cors = require('cors')
 const session = require('express-session');
+require('./config/connection');
 const app = express()
 const routes=require('./routes')
 app.use(session({
@@ -16,7 +17,7 @@ app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }))
-dotEnv.config()
+require('dotenv/config');
 app.use(body_parser.json())
 app.use('/api',routes )
 const port = process.env.PORT
