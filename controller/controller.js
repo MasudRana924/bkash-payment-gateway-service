@@ -38,7 +38,7 @@ const createPayment = async (req, res) => {
 const callback = async (req, res) => {
     const { paymentID, status, } = req.query;
     if (status === 'cancel' || status === 'failure') {
-        return res.redirect(`http://localhost:3000/error?message=${status}`);
+        return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${status}`);
     }
 
     if (status === 'success') {
@@ -52,13 +52,13 @@ const callback = async (req, res) => {
                     trxID: data.trxID,
                     amount: parseInt(data.amount)
                 })
-                return res.redirect('http://localhost:3000/success');
+                return res.redirect('https://esale-desktop-app.vercel.app/success');
             } else {
-                return res.redirect(`http://localhost:3000/error?message=${data.statusMessage}`);
+                return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${data.statusMessage}`);
             }
         } catch (error) {
             console.error("error", error);
-            return res.redirect(`http://localhost:3000/error?message=${error.message}`);
+            return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${error.message}`);
         }
     }
 };
@@ -89,7 +89,7 @@ const createAgreement = async (req, res) => {
 const agreementCallback = async (req, res) => {
     const { paymentID, status } = req.query;
     if (status === 'cancel' || status === 'failure') {
-        return res.redirect(`http://localhost:3000/error?message=${status}`);
+        return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${status}`);
     }
     if (status === 'success') {
         try {
@@ -100,13 +100,13 @@ const agreementCallback = async (req, res) => {
             console.log(req.session.agreementId);
 
             if (data && data.statusCode === '0000') {
-                return res.redirect('http://localhost:3000/agreement/success');
+                return res.redirect('https://esale-desktop-app.vercel.app/agreement/success');
             } else {
-                return res.redirect(`http://localhost:3000/error?message=${data.statusMessage}`);
+                return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${data.statusMessage}`);
             }
         } catch (error) {
             console.error("error", error);
-            return res.redirect(`http://localhost:3000/error?message=${error.message}`);
+            return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${error.message}`);
         }
     }
 };
@@ -140,7 +140,8 @@ const createPaymentAfterAgreement = async (req, res) => {
 const afterAgreementCallback = async (req, res) => {
     const { paymentID, status } = req.query;
     if (status === 'cancel' || status === 'failure') {
-        return res.redirect(`http://localhost:3000/error?message=${status}`);
+        // return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${status}`);
+        return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${status}`);
     }
 
     if (status === 'success') {
@@ -150,13 +151,13 @@ const afterAgreementCallback = async (req, res) => {
             });
             console.log("data-----", data);
             if (data && data.statusCode === '0000') {
-                return res.redirect('http://localhost:3000/success');
+                return res.redirect('https://esale-desktop-app.vercel.app/success');
             } else {
-                return res.redirect(`http://localhost:3000/error?message=${data.statusMessage}`);
+                return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${data.statusMessage}`);
             }
         } catch (error) {
             console.error("error", error);
-            return res.redirect(`http://localhost:3000/error?message=${error.message}`);
+            return res.redirect(`https://esale-desktop-app.vercel.app/error?message=${error.message}`);
         }
     }
 };

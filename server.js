@@ -14,7 +14,8 @@ app.use(session({
     cookie: { secure: false } // Set secure to true if using HTTPS
 }));
 app.use(cors({
-    origin: 'http://localhost:3000',
+    // origin: 'http://localhost:3000',
+    origin: 'https://esale-desktop-app.vercel.app',
     credentials: true
 }))
 require('dotenv/config');
